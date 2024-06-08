@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kolay Matematik</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background-color: #111;
+      color: #111;
+    }
+    .title {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 36px;
+      color: #0ff; /* Neon mavi */
+    }
+    .search-bar {
+      margin-top: 20px;
+    }
+    .categories {
+      margin-top: 30px;
+    }
+    .category-btn {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .hidden {
+      display: none;
+    }
+    @media (max-width: 768px) {
+      .category-btn {
+        height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 title">
+        Kolay Matematik
+      </div>
+    </div>
+    <div class="row search-bar">
+      <div class="col-12">
+        <input type="text" class="form-control" id="searchInput" placeholder="Arama...">
+      </div>
+    </div>
+    <div class="row categories" id="categoryList">
+      <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+        <button type="button" class="btn btn-outline-success category-btn" data-bs-toggle="modal" data-bs-target="#ebok-ekok-modal">Ebob Ekok</button>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+        <button type="button" class="btn btn-outline-success category-btn" data-bs-toggle="modal" data-bs-target="#bilinmeyen-denklemler-modal">Bir Bilinmeyenli</button>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+        <button type="button" class="btn btn-outline-success category-btn" data-bs-toggle="modal" data-bs-target="#ikiBilinmeyenliDenklemlerModal">İki Bilinmeyenli</button>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+        <button type="button" class="btn btn-outline-success category-btn" data-bs-toggle="modal" data-bs-target="#asal-carpanlar-modal">Asal Çarpanlar</button>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+        <button type="button" class="btn btn-outline-success category-btn" data-bs-toggle="modal" data-bs-target="#faktoriyel-modal">Faktoriyel Bulma</button>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+        <button type="button" class="btn btn-outline-success category-btn" data-bs-toggle="modal" data-bs-target="#aralarinda-asallik-modal">Aralarında Asallık</button>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+        <button type="button" class="btn btn-outline-success category-btn" data-bs-toggle="modal" data-bs-target="#fibonacci-modal">Fibonacci Serisi</button>
+      </div>
+
+      <!-- Diğer kategoriler buraya eklenecek -->
+    </div>
+  </div>
+
+  <!-- İki Bilinmeyenli Denklemler Modal -->
+<div class="modal fade" id="ikiBilinmeyenliDenklemlerModal" tabindex="-1" aria-labelledby="ikiBilinmeyenliDenklemlerModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ikiBilinmeyenliDenklemlerModalLabel">İki Bilinmeyenli Denklemler Hesaplama</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h3>ax + by = c</h3>
+        <div class="mb-3">
+          <label for="a" class="form-label">a:</label>
+          <input type="number" class="form-control" id="a">
+        </div>
+        <div class="mb-3">
+          <label for="b" class="form-label">b:</label>
+          <input type="number" class="form-control" id="b">
+        </div>
+        <div class="mb-3">
+          <label for="c" class="form-label">c:</label>
+          <input type="number" class="form-control" id="c">
+        </div>
+        <button type="button" class="btn btn-primary" id="calculateBtn">Hesapla</button>
+        <div id="result" class="mt-3"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Ebok Ekok Modal -->
+<div class="modal fade" id="ebok-ekok-modal" tabindex="-1" aria-labelledby="ebok-ekok-modal-label" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ebok-ekok-modal-label">Ebob Ekok Hesaplama</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="number" class="form-control mb-2" id="inputNumber1" placeholder="Sayı 1">
+        <input type="number" class="form-control mb-2" id="inputNumber2" placeholder="Sayı 2">
+        <button type="button" class="btn btn-primary" onclick="calculateEbokEkok()">Hesapla</button>
+        <div id="resultArea" class="mt-3" style="display: none;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Asal Çarpanlar Modal -->
+<div class="modal fade" id="asal-carpanlar-modal" tabindex="-1" aria-labelledby="asal-carpanlar-modal-label" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="asal-carpanlar-modal-label">Asal Çarpanlar Hesaplama</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="number" class="form-control mb-2" id="inputNumber" placeholder="Sayı">
+        <button type="button" class="btn btn-primary" onclick="calculateAsalCarpanlar()">Hesapla</button>
+        <div id="asalCarpanlarResult" class="mt-3" style="display: none;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Faktoriyel Bulma Modal -->
+<div class="modal fade" id="faktoriyel-modal" tabindex="-1" aria-labelledby="faktoriyel-modal-label" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="faktoriyel-modal-label">Faktoriyel Hesaplama</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="number" class="form-control mb-2" id="inputNumberFaktoriyel" placeholder="Sayı">
+        <button type="button" class="btn btn-primary" onclick="calculateFaktoriyel()">Hesapla</button>
+        <div id="faktoriyelResult" class="mt-3" style="display: none;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Aralarında Asallık Modal -->
+<div class="modal fade" id="aralarinda-asallik-modal" tabindex="-1" aria-labelledby="aralarinda-asallik-modal-label" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="aralarinda-asallik-modal-label">Aralarında Asallık Kontrolü</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="number" class="form-control mb-2" id="inputNumber1Asallik" placeholder="Sayı 1">
+        <input type="number" class="form-control mb-2" id="inputNumber2Asallik" placeholder="Sayı 2">
+        <button type="button" class="btn btn-primary" onclick="checkAralarindaAsallik()">Hesapla</button>
+        <div id="aralarindaAsallikResult" class="mt-3" style="display: none;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- bir bilinmeyenli denklem modal -->
+<div class="modal fade" id="bilinmeyen-denklemler-modal" tabindex="-1" aria-labelledby="bilinmeyen-denklemler-modal-label" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="bilinmeyen-denklemler-modal-label">Bir Bilinmeyenli Denklemler Çözümü</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h3>ax + b = c</h3>
+        <form>
+          <div class="mb-3">
+            <label for="inputA" class="form-label">a Değeri:</label>
+            <input type="number" class="form-control" id="inputA" placeholder="a">
+          </div>
+          <div class="mb-3">
+            <label for="inputB" class="form-label">b Değeri:</label>
+            <input type="number" class="form-control" id="inputB" placeholder="b">
+          </div>
+          <div class="mb-3">
+            <label for="inputC" class="form-label">c Değeri:</label>
+            <input type="number" class="form-control" id="inputC" placeholder="c">
+          </div>
+          <button type="button" class="btn btn-primary" onclick="calculateBilinmeyenDenklem()">Hesapla</button>
+        </form>
+        <div id="bilinmeyenDenklemResult" class="mt-3" style="display: none;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Fibonacci Serisi Modal -->
+<div class="modal fade" id="fibonacci-modal" tabindex="-1" aria-labelledby="fibonacci-modal-label" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="fibonacci-modal-label">Fibonacci Serisi Hesaplama</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="number" class="form-control mb-2" id="inputFibonacci" placeholder="Sayı">
+        <button type="button" class="btn btn-primary" onclick="calculateFibonacci()">Hesapla</button>
+        <div id="fibonacciResult" class="mt-3" style="display: none;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JS -->
+  <script>
+    document.getElementById("searchInput").addEventListener("input", function() {
+      var searchText = this.value.toLowerCase();
+      var categories = document.querySelectorAll(".category-btn");
+
+      categories.forEach(function(category) {
+        var categoryText = category.textContent.toLowerCase();
+        if (categoryText.includes(searchText)) {
+          category.parentNode.style.display = "block";
+        } else {
+          category.parentNode.style.display = "none";
+        }
+      });
+    });
+
+
+    function calculateEbokEkok() {
+    var number1 = parseInt(document.getElementById("inputNumber1").value);
+    var number2 = parseInt(document.getElementById("inputNumber2").value);
+
+    // Ebob hesaplama
+    var ebob = findGCD(number1, number2);
+    // Ekok hesaplama
+    var ekok = (number1 * number2) / ebob;
+
+    var resultArea = document.getElementById("resultArea");
+    resultArea.innerHTML = "Ebob: " + ebob + "<br>Ekok: " + ekok;
+    resultArea.style.display = "block";
+  }
+
+  // Ebob hesaplama fonksiyonu
+  function findGCD(a, b) {
+    while (b !== 0) {
+      var temp = b;
+      b = a % b;
+      a = temp;
+    }
+    return a;
+  }
+
+  // Asal Çarpanlar
+  
+  // function calculateAsalCarpanlar() {
+  //   var number = parseInt(document.getElementById("inputNumber").value);
+  //   var result = findPrimeFactors(number);
+  //   var resultArea = document.getElementById("asalCarpanlarResult");
+  //   resultArea.innerHTML = "Asal Çarpanlar: " + result.join(", ");
+  //   resultArea.style.display = "block";
+  // }
+
+  // function findPrimeFactors(num) {
+  //   var factors = [];
+  //   for (var i = 2; i <= num; i++) {
+  //     while (num % i === 0) {
+  //       factors.push(i);
+  //       num /= i;
+  //     }
+  //   }
+  //   return factors;
+  // }
+  function calculateAsalCarpanlar() {
+  var number = parseInt(document.getElementById("inputNumber").value);
+  var result = findPrimeFactors(number);
+  var resultArea = document.getElementById("asalCarpanlarResult");
+  var formattedResult = formatPrimeFactors(result);
+  resultArea.innerHTML = "Asal Çarpanlar: " + formattedResult.join(", ");
+  resultArea.style.display = "block";
+}
+
+function findPrimeFactors(num) {
+  var factors = [];
+  for (var i = 2; i <= num; i++) {
+    while (num % i === 0) {
+      factors.push(i);
+      num /= i;
+    }
+  }
+  return factors;
+}
+
+function formatPrimeFactors(factors) {
+  var formattedFactors = [];
+  var currentFactor = factors[0];
+  var currentCount = 1;
+
+  for (var i = 1; i < factors.length; i++) {
+    if (factors[i] === currentFactor) {
+      currentCount++;
+    } else {
+      if (currentCount === 1) {
+        formattedFactors.push(currentFactor);
+      } else {
+        formattedFactors.push(currentFactor + "<sup>" + currentCount + "</sup>");
+      }
+      currentFactor = factors[i];
+      currentCount = 1;
+    }
+  }
+
+  if (currentCount === 1) {
+    formattedFactors.push(currentFactor);
+  } else {
+    formattedFactors.push(currentFactor + "<sup>" + currentCount + "</sup>");
+  }
+
+  return formattedFactors;
+}
+
+  // Faktoriyel Hesaplama
+  function calculateFaktoriyel() {
+    var number = parseInt(document.getElementById("inputNumberFaktoriyel").value);
+    var result = faktoriyel(number);
+    var resultArea = document.getElementById("faktoriyelResult");
+    resultArea.innerHTML = "Faktoriyel: " + result;
+    resultArea.style.display = "block";
+  }
+
+  function faktoriyel(num) {
+    if (num === 0 || num === 1)
+      return 1;
+    for (var i = num - 1; i >= 1; i--) {
+      num *= i;
+    }
+    return num;
+  }
+
+  // Aralarında Asallık
+  function checkAralarindaAsallik() {
+    var number1 = parseInt(document.getElementById("inputNumber1Asallik").value);
+    var number2 = parseInt(document.getElementById("inputNumber2Asallik").value);
+    var result = aralarindaAsallik(number1, number2);
+    var resultArea = document.getElementById("aralarindaAsallikResult");
+    if (result === 1) {
+      resultArea.innerHTML = "Aralarında Asal";
+    } else {
+      resultArea.innerHTML = "Aralarında Asal Değil, Ortak Bölen: " + result;
+    }
+    resultArea.style.display = "block";
+  }
+
+  function aralarindaAsallik(num1, num2) {
+    var smallerNumber = Math.min(num1, num2);
+    for (var i = 2; i <= smallerNumber; i++) {
+      if (num1 % i === 0 && num2 % i === 0) {
+        return i;
+      }
+    }
+    return 1;
+  }
+
+  // bir bilinemyenli denklem
+
+  function calculateBilinmeyenDenklem() {
+    var a = parseFloat(document.getElementById("inputA").value);
+    var b = parseFloat(document.getElementById("inputB").value);
+    var c = parseFloat(document.getElementById("inputC").value);
+
+    if (isNaN(a) || isNaN(b) || isNaN(c)) {
+      alert("Lütfen geçerli sayısal değerler girin.");
+      return;
+    }
+
+    if (a === 0) {
+      alert("Denklem geçerli değil (a sıfır olamaz).");
+      return;
+    }
+
+    var result = solveBilinmeyenDenklem(a, b, c);
+    var resultArea = document.getElementById("bilinmeyenDenklemResult");
+    resultArea.innerHTML = "Denklem: " + a + "x + " + b + " = " + c +"<br>Çözüm: x = " + result;
+    resultArea.style.display = "block";
+  }
+
+  function solveBilinmeyenDenklem(a, b, c) {
+    return (-b + c) / a;
+  }
+
+  // fibonacci Serisi
+
+  function calculateFibonacci() {
+    var n = parseInt(document.getElementById("inputFibonacci").value);
+    var result = fibonacci(n);
+    var resultArea = document.getElementById("fibonacciResult");
+    resultArea.innerHTML = "Fibonacci Serisi: " + result.join(", ");
+    resultArea.style.display = "block";
+  }
+
+  function fibonacci(num) {
+    var fibArray = [0, 1];
+    for (var i = 2; i < num; i++) {
+      fibArray[i] = fibArray[i - 1] + fibArray[i - 2];
+    }
+    return fibArray.slice(0, num);
+  }
+  // 2 bilinmeyenli denklem
+//   document.addEventListener("DOMContentLoaded", function() {
+//     document.getElementById("calculateBtn").addEventListener("click", function() {
+//         var a = parseFloat(document.getElementById("a").value);
+//         var b = parseFloat(document.getElementById("b").value);
+//         var c = parseFloat(document.getElementById("c").value);
+
+//         if (!isNaN(a) && !isNaN(b) && !isNaN(c)) {
+//             var solution = solveEquation(a, b, c);
+//             if (solution !== null) {
+//                 document.getElementById("result").innerText = "x = " + solution.x + ", y = " + solution.y;
+//             } else {
+//                 document.getElementById("result").innerText = "Denklem çözülemedi. Lütfen geçerli bir denklem girin.";
+//             }
+//         } else {
+//             document.getElementById("result").innerText = "Lütfen geçerli sayılar girin.";
+//         }
+//     });
+// });
+
+// function solveEquation(a, b, c) {
+//     // İki bilinmeyenli denklemi çözme
+//     // Eğer a veya b sıfırsa ve c sıfır değilse, denklem çözülemez
+//     if ((a === 0 && b === 0 && c !== 0) || (a === 0 && b === 0 && c === 0)) {
+//         return null;
+//     }
+
+//     var x, y;
+
+//     // Eğer a veya b sıfırsa, diğer bilinmeyeni c'nin karşılığına göre hesapla
+//     if (a === 0) {
+//         y = c / b;
+//         x = (c - b * y) / a;
+//     } else if (b === 0) {
+//         x = c / a;
+//         y = (c - a * x) / b;
+//     } else {
+//         // Normal durumda, denklemi çöz
+//         y = (c - a) / b;
+//         x = (c - b * y) / a;
+//     }
+
+//     return { x: x, y: y };
+// }
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("calculateBtn").addEventListener("click", function() {
+        var a = parseInt(document.getElementById("a").value);
+        var b = parseInt(document.getElementById("b").value);
+        var c = parseInt(document.getElementById("c").value);
+
+        if (!isNaN(a) && !isNaN(b) && !isNaN(c)) {
+            var solutions = solveEquation(a, b, c);
+            if (solutions.length > 0) {
+                var resultText = "Denklemin çözüm kümesi:<br>";
+                for (var i = 0; i < solutions.length; i++) {
+                    resultText += "x = " + solutions[i].x + ", y = " + solutions[i].y + "<br>";
+                }
+                document.getElementById("result").innerHTML = resultText;
+            } else {
+                document.getElementById("result").innerText = "Denklem çözülemedi. Lütfen geçerli bir denklem girin.";
+            }
+        } else {
+            document.getElementById("result").innerText = "Lütfen geçerli sayılar girin.";
+        }
+    });
+});
+
+function solveEquation(a, b, c) {
+    var solutions = [];
+
+    for (var x = -100; x <= 100; x++) {
+        for (var y = -100; y <= 100; y++) {
+            if (a * x + b * y === c) {
+                solutions.push({ x: x, y: y });
+            }
+        }
+    }
+
+    return solutions;
+}
+
+
+    </script>
+</body>
+</html>
